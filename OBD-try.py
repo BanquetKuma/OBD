@@ -5,9 +5,9 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import pandas as pd
 import os
-from bottle import route, run
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
+#from bottle import route, run
+#import ssl
+#ssl._create_default_https_context = ssl._create_unverified_context
 
 OBD2=pd.read_csv("https://raw.githubusercontent.com/BanquetKuma/OBD/master/OBD_GPS_CSV")
 
@@ -15,6 +15,7 @@ col_options = [dict(label=x, value=x) for x in OBD2.columns]
 dimensions = ["x", "y", "color"]
 
 app = dash.Dash(__name__, external_stylesheets=["https://codepen.io/chriddyp/pen/bWLwgP.css"])
+server = app.server
 
 app.layout = html.Div(
     [
@@ -40,5 +41,7 @@ def make_figure(x, y, color):
         height=700)
 
 #plotly_expressの描画部分
+if __name__ == '__main__':
+    app.run_server(debug=True)
 
-run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+#run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
