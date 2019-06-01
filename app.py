@@ -30,7 +30,6 @@ app.layout = html.Div(
         dcc.Graph(id="graph", style={"width": "75%", "display": "inline-block"})
     ])
 
-@route("/")
 @app.callback(Output("graph", "figure"), [Input(d, "value") for d in dimensions])
 def make_figure(x, y, color):
     return px.scatter(
